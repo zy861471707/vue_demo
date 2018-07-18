@@ -120,25 +120,25 @@ exports.slides = {
   data:[
     {
       id:1,
-      src: '../assets/solid/1.jpg',
+      src: 'static/solid/1.jpg',
       title: 'title1',
       href: 'detail/analysis'
     },
     {
       id: 2,
-      src: '../assets/solid/2.jpg',
+      src: 'static/solid/2.jpg',
       title: 'title2',
       href: 'detail/count'
     },
     {
       id: 3,
-      src: '../assets/solid/3.jpg',
+      src: 'static/solid/3.jpg',
       title: 'title3',
       href: 'http://xxx.xxx.com'
     },
     {
       id: 4,
-      src: '../assets/solid/4.jpg',
+      src: 'static/solid/4.jpg',
       title: 'title4',
       href: 'detail/forecast'
     }

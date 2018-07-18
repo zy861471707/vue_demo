@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="index-right">
-      <slider-show :slides="slides"></slider-show>
+      <slider-show v-if="slides.length" :slides="slides"></slider-show>
       <div class="index-board-list">
         <div class="index-board-item" v-for="(item,index) in boardList" :key="item.id" v-bind:class="[{'line-last' : index % 2 !== 0},'index-board-'+item.id]">
           <div class="index-board-item-inner" >
@@ -62,39 +62,47 @@
             this.productList = d.data.data;
           }
         });
-        // this.$http.post("api/getSliderList").then(d => {
-        //   if(d && d.data.result){
-        //     console.log(d.data);
-        //     this.slides = d.data.data;
-        //   }
-        // });
+        this.$http.post("api/getSliderList").then(d => {
+          if(d && d.data.result){
+            console.log(1 , d.data);
+            this.slides = d.data.data;
+          }
+        });
       },
+      // watch:{
+      //   slides:function(val){
+      //     console.log(2,val);
+      //     this.show = true;
+      //     this.slides = val;
+      //   }
+      // },
       data(){
           return {
               boardList: [],
               newList:[],
               productList: {},
+              show: false,
               slides: [
-                {
-                  src: require('../assets/solid/1.jpg'),
-                  title: 'xxx1',
-                  href: 'detail/analysis'
-                },
-                {
-                  src: require('../assets/solid/2.jpg'),
-                  title: 'xxx2',
-                  href: 'detail/count'
-                },
-                {
-                  src: require('../assets/solid/3.jpg'),
-                  title: 'xxx3',
-                  href: 'http://xxx.xxx.com'
-                },
-                {
-                  src: require('../assets/solid/4.jpg'),
-                  title: 'xxx4',
-                  href: 'detail/forecast'
-                }
+                // {
+                //   src: require('../assets/solid/1.jpg'),
+                //   title: 'xxx1',
+                //   href: 'detail/analysis'
+                // },
+                // {
+                //   src: require('../assets/solid/2.jpg'),
+                //   title: 'xxx2',
+                //   href: 'detail/count'
+                // },
+                // {
+                //   src: require('../assets/solid/3.jpg'),
+                //   title: 'xxx3',
+                //   href: 'http://xxx.xxx.com'
+                // },
+                // {
+                //   src: require('../assets/solid/4.jpg'),
+                //   title: 'xxx4',
+                //   href: 'detail/forecast'
+                // }
               ]
           }
       }

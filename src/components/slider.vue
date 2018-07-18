@@ -2,7 +2,7 @@
   <div class="slide-show">
     <div class="slide-img">
       <a>
-          <img :src="slides[activeIndex].src" >
+        <img v-bind:src="slides[activeIndex].src">
       </a>
     </div>
     <h2>{{slides[activeIndex].title}}</h2>
@@ -26,13 +26,13 @@ export default {
       }
     }
   },
+  created() {
+    console.log(3,this.slides);
+  },
   data () {
       return {
-        activeIndex: 0,
+        activeIndex: 0
       }
-  },
-  mounted() {
-    console.log(this.slides);
   },
   methods:{
     goImgIndex(index){

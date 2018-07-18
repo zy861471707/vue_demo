@@ -19,7 +19,15 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-\
 
+采用express搭建模拟服务器
+  body-parser：
+    app.use(bodyParser.urlencoded());
+    app.use(bodyParser.json());
+  http-proxy-middleware：
+    搭建端口，反向代理
+    proxyTable: {
+      '/api': 'http://localhost:19000'
+    }
 
 
