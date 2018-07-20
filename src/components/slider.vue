@@ -1,15 +1,17 @@
 <template>
-  <div class="slide-show">
+  <div class="slide-show" v-on:mouseover="clearInvSlide()" v-on:mouseout="runInvSlide()">
     <div class="slide-img">
       <a>
-        <img v-bind:src="slides[activeIndex].src">
+        <transition name="slide-trans">
+          <img v-bind:src="slides[activeIndex].src">
+        </transition>
       </a>
     </div>
     <h2>{{slides[activeIndex].title}}</h2>
     <ul class="slide-pages">
       <li @click="goImgIndex(preceIndex)">&lt;</li>
       <li v-for="(item,index) in slides" v-bind:key="item.id" v-on:click="goImgIndex(index)">
-        <a>{{index+1}}</a>
+        <a v-bind:class="{on:index === activeIndex}">{{index+1}}</a>
       </li>
       <li @click="goImgIndex(nextIndex)">&gt;</li>
     </ul>
@@ -24,10 +26,17 @@ export default {
       default() {
         return []
       }
+    },
+    invTime:{
+      type:Number,
+      default(){
+        return 1000
+      }
     }
   },
   created() {
     console.log(3,this.slides);
+    this.runInvSlide();
   },
   data () {
       return {
@@ -35,11 +44,23 @@ export default {
       }
   },
   methods:{
+    //跳转对应index
     goImgIndex(index){
       this.activeIndex = index;
+    },
+    //自动切换
+    runInvSlide(){
+      this.invName = setInterval(()=>{
+        this.goImgIndex(this.nextIndex);
+      },this.invTime)
+    },
+    //取消切换
+    clearInvSlide(){
+      clearInterval(this.invName)
     }
   },
   computed:{
+    //上一页计算属性
     preceIndex(){
       if(this.activeIndex === 0){
         return this.slides.length - 1;
@@ -47,6 +68,7 @@ export default {
         return this.activeIndex - 1;
       }
     },
+    //下一页计算属性
     nextIndex(){
       if(this.activeIndex === this.slides.length - 1){
         return 0;
@@ -60,12 +82,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.slide-trans-enter-active {
+  transition: all .5s;
+}
+.slide-trans-enter {
+  transform: translateX(900px);
+}
+.slide-trans-old-leave-active {
+  transition: all .5s;
+  transform: translateX(-900px);
+}
 .slide-show {
   position: relative;
   margin: 15px 15px 15px 0;
   width: 900px;
   height: 500px;
   overflow: hidden;
+  user-select: none;
 }
 .slide-show h2 {
   position: absolute;
@@ -99,6 +132,6 @@ export default {
   color: #fff;
 }
 .slide-pages li .on {
-  text-decoration: underline;
+  color:#f8ad17;
 }
 </style>

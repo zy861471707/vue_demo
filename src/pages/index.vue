@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="index-right">
-      <slider-show v-if="slides.length" :slides="slides"></slider-show>
+      <slider-show v-if="slides.length" :slides="slides" :invTime="time"></slider-show>
       <div class="index-board-list">
         <div class="index-board-item" v-for="(item,index) in boardList" :key="item.id" v-bind:class="[{'line-last' : index % 2 !== 0},'index-board-'+item.id]">
           <div class="index-board-item-inner" >
@@ -82,28 +82,8 @@
               newList:[],
               productList: {},
               show: false,
-              slides: [
-                // {
-                //   src: require('../assets/solid/1.jpg'),
-                //   title: 'xxx1',
-                //   href: 'detail/analysis'
-                // },
-                // {
-                //   src: require('../assets/solid/2.jpg'),
-                //   title: 'xxx2',
-                //   href: 'detail/count'
-                // },
-                // {
-                //   src: require('../assets/solid/3.jpg'),
-                //   title: 'xxx3',
-                //   href: 'http://xxx.xxx.com'
-                // },
-                // {
-                //   src: require('../assets/solid/4.jpg'),
-                //   title: 'xxx4',
-                //   href: 'detail/forecast'
-                // }
-              ]
+              slides: [],
+              time:2000
           }
       }
     }
