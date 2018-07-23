@@ -40,7 +40,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   Vue.use(AxiosPlugin);
   ```
 # 自定义使用node搭建模拟服务器(express)
-##需要安装express+body-parser
+需要安装express+body-parser<br>
+```
 var express = require("express");
 var bodyParser = require('body-parser');
 var http = require('http').createServer(app);
@@ -48,7 +49,7 @@ var db = require('./db');
 app.set('port', process.env.PORT || 19000);
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-
+```
 ```
 //监听端口是否启动
 http.listen(app.get('port'), function () {
@@ -61,8 +62,7 @@ app.post('/api/getNewsList', function (req, res) {
     res.send(db.newsList);
 })
 ```
-##搭建模拟服务器需要设置反向代理
-###需要安装http-proxy-middleware
+搭建模拟服务器需要设置反向代理:需要安装http-proxy-middleware<br>
 在index.js里面找到proxyTable,将其设置成下面<br>
   ```
   //搭建端口，反向代理
