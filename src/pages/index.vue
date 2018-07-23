@@ -44,38 +44,31 @@
         SliderShow
       },
       created() {
-        this.$http.post("api/getNewsList").then(d => {
+        this.http.post("api/getNewsList").then(d => {
           if(d && d.data.result){
             // console.log(d.data);
             this.newList = d.data.data;
           }
         });
-        this.$http.post("api/getBoardList").then(d => {
+        this.http.post("api/getBoardList").then(d => {
           if(d && d.data.result){
             // console.log(d.data);
             this.boardList = d.data.data;
           }
         });
-        this.$http.post("api/getProductList").then(d => {
+        this.http.post("api/getProductList").then(d => {
           if(d && d.data.result){
             // console.log(d.data);
             this.productList = d.data.data;
           }
         });
-        this.$http.post("api/getSliderList").then(d => {
+        this.http.post("api/getSliderList").then(d => {
           if(d && d.data.result){
             console.log(1 , d.data);
             this.slides = d.data.data;
           }
         });
       },
-      // watch:{
-      //   slides:function(val){
-      //     console.log(2,val);
-      //     this.show = true;
-      //     this.slides = val;
-      //   }
-      // },
       data(){
           return {
               boardList: [],
