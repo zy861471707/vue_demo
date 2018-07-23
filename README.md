@@ -72,3 +72,9 @@ app.post('/api/getNewsList', function (req, res) {
   ```
 
 
+### 关于自定义slides中动画切换问题
+1.当前图片出去时从右边向左边滑动，即从有到无<br>
+2.下一张图片从右边滑动到左边，即从无到有<br>
+eg:<br>
+页面初始化展示第一张图片(isShow=true)，当图片更改方法(goImgIndex)执行时，设置isShow为false，为了有其看到延迟效果，使用setTimeout来进行模拟延迟，在setTimeout中设置isShow为true，又展示其当前图片，并进行索引下标传值
+

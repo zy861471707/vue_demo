@@ -3,7 +3,10 @@
     <div class="slide-img">
       <a>
         <transition name="slide-trans">
-          <img v-bind:src="slides[activeIndex].src">
+          <img v-if="isShow" v-bind:src="slides[activeIndex].src">
+        </transition>
+        <transition name="slide-trans-old">
+          <img v-if="!isShow" v-bind:src="slides[activeIndex].src">
         </transition>
       </a>
     </div>
@@ -40,13 +43,18 @@ export default {
   },
   data () {
       return {
-        activeIndex: 0
+        activeIndex: 0,
+        isShow:true
       }
   },
   methods:{
     //跳转对应index
     goImgIndex(index){
-      this.activeIndex = index;
+      this.isShow = false;
+      setTimeout(()=>{
+        this.isShow = true;
+        this.activeIndex = index;
+      },100)
     },
     //自动切换
     runInvSlide(){
@@ -111,6 +119,7 @@ export default {
   height: 30px;
   text-align: left;
   padding-left: 15px;
+  line-height: 30px;
 }
 .slide-img {
   width: 100%;
