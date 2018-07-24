@@ -6,12 +6,12 @@
         <div class="head-nav">
           <ul class="nav-list">
             <li class="nav-pile">|</li>
-            <li>退出</li>
-            <li>登录</li>
+            <!-- <li>退出</li> -->
+            <li v-on:click="showDialog('isLogin')">登录</li>
             <li class="nav-pile">|</li>
-            <li >注册</li>
+            <li v-on:click="showDialog('isRegister')">注册</li>
             <li class="nav-pile">|</li>
-            <li>关于</li>
+            <li v-on:click="showDialog('isAbout')">关于</li>
           </ul>
         </div>  
       </div>
@@ -24,15 +24,40 @@
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
     </div>
- 
+    <!-- 遮罩 -->
+    <dialog-show v-if="isLogin" v-on:close-dialog="closeLog('isLogin')">
+      <login-form></login-form>
+    </dialog-show>
+    <dialog-show v-if="isRegister" v-on:close-dialog="closeLog('isRegister')">
+      <p>注册</p>
+    </dialog-show>
+    <dialog-show v-if="isAbout" v-on:close-dialog="closeLog('isAbout')">
+      <p>这是一段说明性文字，如果不指定文字内容，会默认展示dialog子组件里面的slot插槽里面的内容！</p>
+    </dialog-show>
   </div>
 </template>
 
 <script>
+import DialogShow from './dialog';
+import loginForm from './login';
 export default {
+  components:{
+    DialogShow,
+    loginForm
+  },
   data () {
     return {
-      msg:'test'
+      isLogin:false,
+      isRegister:false,
+      isAbout:false
+    }
+  },
+  methods:{
+    showDialog(dialogName){
+      this[dialogName] = true;
+    },
+    closeLog(dialogName){
+      this[dialogName] = false;
     }
   }
 }
