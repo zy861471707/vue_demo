@@ -1,15 +1,44 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import indexPage from '../pages/index'
+import Vue from 'vue';
+import Router from 'vue-router';
+import loginPage from '../components/login';
+import indexPage from '../pages/index';
+import Layout from '../components/layout';
+import cookie from '../servers/cookie';
+Vue.use(Router);
+const constantRouterMap = [
+  {
+    path: '/login',
+    name: 'login',
+    component: loginPage
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: 'indexPage',
+    children:[
+      {
+        path: '/indexPage',
+        name: 'indexPage',
+        component: indexPage
+      },
+    ]
+  },
+  
+];
+const RouterConfig = {
+  routes: constantRouterMap
+};
+const router = new Router(RouterConfig);
 
-Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'indexPage',
-      component: indexPage
-    }
-  ]
-})
+router.beforeEach((to, from, next) => {
+  let flag = function(){
+    console.log(cookie.get('userid'))
+    return cookie.get('userid')?true:false;
+  }
+  if (to.path !== '/login' && !flag()) {
+    next('/login');
+  } else {
+    next();
+  }
+});
+export default router;

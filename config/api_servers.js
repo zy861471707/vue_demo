@@ -17,6 +17,10 @@ http.listen(app.get('port'), function () {
   console.log('server listening on port' + app.get('port'));
 });
 //获取新闻中心列表
+app.post('/api/login', function (req, res) {
+  res.send(db.loginInfo);
+})
+//获取新闻中心列表
 app.post('/api/getNewsList', function (req, res) {
     res.send(db.newsList);
 })

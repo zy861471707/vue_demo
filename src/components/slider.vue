@@ -126,7 +126,6 @@ export default {
 }
 .slide-img img {
   width: 100%;
-  position: absolute;
   top: 0;
 }
 .slide-pages {

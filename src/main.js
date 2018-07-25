@@ -3,10 +3,9 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-// import App from './App'
-import router from './router';
-// import vuex from './vuex'
-import Layout from './components/layout';
+import App from './App';
+import router from './router/index';
+// import vuex from './vuex';
 Vue.config.productionTip = false;
 import AxiosPlugin from '../src/servers/axios';
 Vue.use(AxiosPlugin);
@@ -16,6 +15,5 @@ new Vue({
   el: '#app',
   router,
   // vuex,
-  components: { Layout },
-  template: '<Layout/>'
+  render: h => h(App)
 })

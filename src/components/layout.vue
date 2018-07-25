@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="container">
-		<keep-alive>
-			<router-view></router-view>
-		</keep-alive>        
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
@@ -132,13 +132,15 @@ body {
 .app-head-inner {
   width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .head-logo {
   float: left;
 }
 .app-head-inner img {
   width: 50px;
-  margin-top: 20px;
 }
 .head-nav {
   float: right;

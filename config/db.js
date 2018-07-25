@@ -1,4 +1,12 @@
  //example
+ exports.loginInfo = {
+  result: true,
+  data:{
+    name:'张三',
+    id:2018,
+    role:'admin'
+  }
+};
  exports.newsList = {
    result: true,
    totalCount: 10,
