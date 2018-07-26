@@ -18,6 +18,9 @@ axios.interceptors.request.use(
                 case 500:
                     result = '服务器发生错误，请与管理员联系！';
                     break;
+                case 504:
+                    result = '服务器发生错误，请与管理员联系！';
+                    break;
             }
             console.log(status);
             return Promise.reject(result);
