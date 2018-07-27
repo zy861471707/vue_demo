@@ -4,9 +4,10 @@
             <div class="detail-wrap">
                 <div class="detail-left">
                     <div class="product-board">
-                        <div v-bind:class="'index-board-'+productIcon"></div>
+                        <div class="index-board-img" v-bind:class="'index-board-'+productIcon"></div>
                         <ul>
-                            <router-link v-for="(item,index) in products" :to="{ path: item.path }" tag="li" active-class="active" v-bind:key="index" v-bind:click="changeMenu(item)">
+                            <router-link v-for="(item,index) in products" :to="{ path: item.path }" tag="li" 
+                            active-class="active" v-bind:key="index" v-on:click.native="changeMenu(item.path)">
                                 {{ item.name }}
                             </router-link>
                         </ul>
@@ -16,10 +17,9 @@
         </el-aside>
         <el-main>
             <div class="detail-right">
-                <!-- <keep-alive>
+                <keep-alive>
                     <router-view></router-view>
-                </keep-alive> -->
-                <p>这是测试用的</p>
+                </keep-alive>
             </div>
         </el-main>
     </el-container>
@@ -28,7 +28,6 @@
 export default {
     data(){
         return {
-            activeMenu:0,
             products:[
                 {
                     name: '数据统计',
@@ -54,9 +53,8 @@ export default {
         }
     },
     methods:{
-        changeMenu(index){
-            console.log(index)
-            // this.activeMenu = index+1;
+        changeMenu(param){
+            console.log(param)
         }
     },
     created(){
@@ -64,12 +62,7 @@ export default {
     },
     computed:{
         productIcon:function(){
-            // if(this.activeMenu === ''){
-                console.log(1111)
-                return this.$route.params.type;
-            // }else{
-            //     return this.activeMenu;
-            // }
+            return this.$route.params.type;
             
         }
     }
@@ -111,19 +104,19 @@ export default {
     height: 100px;
     width: 100%;
 }
-.index-board-1{
+.index-board-analysis{
   background: url(../assets/1.png) no-repeat;
   background-position: center;
 }
-.index-board-2{
+.index-board-count{
   background: url(../assets/2.png) no-repeat;
   background-position: center;
 }
-.index-board-3{
+.index-board-forecast{
   background: url(../assets/3.png) no-repeat;
   background-position: center;
 }
-.index-board-4{
+.index-board-publish{
   background: url(../assets/4.png) no-repeat;
   background-position: center;
 }

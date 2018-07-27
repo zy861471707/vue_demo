@@ -4,10 +4,10 @@ import loginPage from '../components/login';
 import indexPage from '../pages/index';
 import Layout from '../components/layout';
 import DetailPage from '../pages/detail';
-// import DetailAnaPage from '../pages/detail/analysis';
-// import DetailCouPage from '../pages/detail/count';
-// import DetailForPage from '../pages/detail/forecast';
-// import DetailPubPage from '../pages/detail/publish';
+import DetailAnaPage from '../pages/detail/analysis';
+import DetailCouPage from '../pages/detail/count';
+import DetailForPage from '../pages/detail/forecast';
+import DetailPubPage from '../pages/detail/publish';
 import cookie from '../servers/cookie';
 Vue.use(Router);
 const constantRouterMap = [
@@ -31,24 +31,28 @@ const constantRouterMap = [
         name:'DetailPage',
         component: DetailPage,
         // redirect: '/detail/analysis',
-        // children: [
-        //   {
-        //     path: 'analysis',
-        //     component: DetailAnaPage
-        //   },
-        //   {
-        //     path: 'count',
-        //     component: DetailCouPage
-        //   },
-        //   {
-        //     path: 'forecast',
-        //     component: DetailForPage
-        //   },
-        //   {
-        //     path: 'publish',
-        //     component: DetailPubPage
-        //   }
-        // ]
+        children: [
+          {
+            path: 'analysis',
+            name:'DetailAnaPage',
+            component: DetailAnaPage
+          },
+          {
+            path: 'count',
+            name:'DetailCouPage',
+            component: DetailCouPage
+          },
+          {
+            path: 'forecast',
+            name:'DetailForPage',
+            component: DetailForPage
+          },
+          {
+            path: 'publish',
+            name:'DetailPubPage',
+            component: DetailPubPage
+          }
+        ]
       }
     ]
   },

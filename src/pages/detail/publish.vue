@@ -10,7 +10,7 @@
                   购买数量：
               </div>
               <div class="sales-board-line-right">
-                  <v-counter :max="100" :min="20"></v-counter>
+                  <!-- <v-counter :max="100" :min="20"></v-counter> -->
               </div>
           </div>
           <div class="sales-board-line">
@@ -18,7 +18,7 @@
                   行业：
               </div>
               <div class="sales-board-line-right">
-                  <v-selection :selections="tradeList"></v-selection>
+                  <!-- <v-selection :selections="tradeList"></v-selection> -->
               </div>
           </div>
           <div class="sales-board-line">
@@ -26,7 +26,7 @@
                   产品版本：
               </div>
               <div class="sales-board-line-right">
-                  <v-mul-chooser :selections="versionList"></v-mul-chooser>
+                  <!-- <v-mul-chooser :selections="versionList"></v-mul-chooser> -->
               </div>
           </div>
           <div class="sales-board-line">
@@ -252,15 +252,15 @@
 </template>
 
 <script>
-import VSelection from '../../components/base/selection'
-import VCounter from '../../components/base/counter'
-import VMulChooser from '../../components/base/multiplyChooser'
+// import VSelection from '../../components/base/selection'
+// import VCounter from '../../components/base/counter'
+// import VMulChooser from '../../components/base/multiplyChooser'
 export default {
-  components: {
-    VSelection,
-    VCounter,
-    VMulChooser
-  },
+//   components: {
+//     VSelection,
+//     VCounter,
+//     VMulChooser
+//   },
   data () {
     return {
       tradeList: [

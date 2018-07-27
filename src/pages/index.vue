@@ -29,7 +29,7 @@
             <p>{{ item.description }}</p>
             <div class="index-board-button">
               <!-- <a class="button">立即购买</a> -->
-              <router-link tag="a" class="button" :to="{ name: 'DetailPage', params: { type: index+1 }}">
+              <router-link tag="a" class="button" :to="{ name: 'DetailPage', params: { type: item.toKey }}">
                 立即购买
               </router-link>
             </div>
