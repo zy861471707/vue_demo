@@ -27,10 +27,9 @@ const constantRouterMap = [
         component: indexPage
       },
       {
-        path: '/detail/:type',
+        path: '/detail',
         name:'DetailPage',
         component: DetailPage,
-        // redirect: '/detail/analysis',
         children: [
           {
             path: 'analysis',

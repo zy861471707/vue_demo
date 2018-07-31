@@ -4,10 +4,10 @@
             <div class="detail-wrap">
                 <div class="detail-left">
                     <div class="product-board">
-                        <div class="index-board-img" v-bind:class="'index-board-'+productIcon"></div>
+                        <div class="index-board-img" v-bind:class="'index-board-'+activePath"></div>
                         <ul>
-                            <router-link v-for="(item,index) in products" :to="{ path: item.path }" tag="li" 
-                            active-class="active" v-bind:key="index" v-on:click.native="changeMenu(item.path)">
+                            <router-link v-for="(item,index) in products" to="" tag="li" 
+                            v-bind:class="{'active':activePath === item.path}" v-bind:key="index" v-on:click.native="changeMenu(item)">
                                 {{ item.name }}
                             </router-link>
                         </ul>
@@ -28,26 +28,23 @@
 export default {
     data(){
         return {
+            activePath:'',
             products:[
                 {
                     name: '数据统计',
-                    path: 'count',
-                    active: false
+                    path: 'count'
                 },
                 {
                     name: '数据预测',
-                    path: 'forecast',
-                    active: false
+                    path: 'forecast'
                 },
                 {
                     name: '流量分析',
-                    path: 'analysis',
-                    active: false
+                    path: 'analysis'
                 },
                 {
                     name: '广告发布',
-                    path: 'publish',
-                    active: false
+                    path: 'publish'
                 }
             ]
         }
@@ -55,16 +52,13 @@ export default {
     methods:{
         changeMenu(param){
             console.log(param)
+            this.activePath = param.path;
+            this.$router.push({path: `/detail/${param.path}`,query: {type: this.activePath}});
         }
     },
     created(){
-        console.log(this.$route.params.type)
-    },
-    computed:{
-        productIcon:function(){
-            return this.$route.params.type;
-            
-        }
+        this.activePath = this.$route.query.type;
+        this.$router.push({path: `/detail/${this.$route.query.type}`,query: {type: this.activePath}});
     }
 }
 </script>

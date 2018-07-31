@@ -4,59 +4,41 @@
         <h2>流量分析</h2>
         <p>是指在获得网站访问量基本数据的情况下对有关数据进行统计、分析，从中发现用户访问网站的规律，并将这些规律与网络营销策略等相结合，从而发现目前网络营销活动中可能存在的问题，并为进一步修正或重新制定网络营销策略提供依据。当然这样的定义是站在网络营销管理的角度来考虑的</p>
       </div>
-      <div class="sales-board-form">
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">
-                  购买数量：
-              </div>
-              <div class="sales-board-line-right">
-                <!-- <v-counter @on-change="onParamChange('buyNum', $event)"></v-counter> -->
-              </div>
-          </div>
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">
-                  产品类型：
-              </div>
-              <div class="sales-board-line-right">
-                  <!-- <v-selection :selections="buyTypes" @on-change="onParamChange('buyType', $event)"></v-selection> -->
-              </div>
-          </div>
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">
-                  有效时间：
-              </div>
-              <div class="sales-board-line-right">
-                  <!-- <v-chooser
-                  :selections="periodList"
-                  @on-change="onParamChange('period', $event)"></v-chooser> -->
-              </div>
-          </div>
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">
-                  产品版本：
-              </div>
-              <div class="sales-board-line-right">
-                  <!-- <v-mul-chooser
-                  :selections="versionList"
-                  @on-change="onParamChange('versions', $event)"></v-mul-chooser> -->
-              </div>
-          </div>
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">
-                  总价：
-              </div>
-              <div class="sales-board-line-right">
-                  {{ price }} 元
-              </div>
-          </div>
-          <div class="sales-board-line">
-              <div class="sales-board-line-left">&nbsp;</div>
-              <div class="sales-board-line-right">
-                  <div class="button" @click="showPayDialog">
-                    立即购买
-                  </div>
-              </div>
-          </div>
+      <div class="form">
+        <el-form>
+          <el-form-item label="购买数量:" class="form-item">
+            <el-number v-on:numChange="isNumberChange"></el-number>
+          </el-form-item>
+          <el-form-item label="产品类型:" class="form-item">
+            <el-select v-if="buyTypes" v-bind:SelectData="buyTypes"></el-select>
+          </el-form-item>
+          <el-form-item label="有效时间:" class="form-item">
+            <el-date-picker
+
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="产品版本:" class="form-item">
+            <el-select v-model="productEdition" placeholder="请选择">
+              <el-option
+                v-for="item in buyTypes"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="" class="form-item">
+            <label slot="label">总&emsp;&emsp;价:</label>
+            100元
+          </el-form-item>
+          <el-form-item size="large">
+            <el-button type="primary" @click="showPayDialog">立即购买</el-button>
+          </el-form-item>
+        </el-form>
       </div>
       <div class="sales-board-des">
         <h2>产品说明</h2>
@@ -110,11 +92,12 @@
       </my-dialog> -->
       <!-- <check-order :is-show-check-dialog="isShowCheckOrder" :order-id="orderId" @on-close-check-dialog="hideCheckOrder"></check-order> -->
   </div>
+  
 </template>
 
 <script>
-// import VSelection from '../../components/base/selection'
-// import VCounter from '../../components/base/counter'
+import ElSelect from '../../components/el-select'
+import ElNumber from '../../components/el-number'
 // import VChooser from '../../components/base/chooser'
 // import VMulChooser from '../../components/base/multiplyChooser'
 // import Dialog from '../../components/base/dialog'
@@ -122,18 +105,20 @@
 // import CheckOrder from '../../components/checkOrder'
 import _ from 'lodash'
 export default {
-  // components: {
-  //   VSelection,
-  //   VCounter,
-  //   VChooser,
-  //   VMulChooser,
-  //   MyDialog: Dialog,
-  //   BankChooser,
-  //   CheckOrder
-  // },
+  components: {
+    ElSelect,
+    ElNumber,
+    // VChooser,
+    // VMulChooser,
+    // MyDialog: Dialog,
+    // BankChooser,
+    // CheckOrder
+  },
   data () {
     return {
-      buyNum: 0,
+      isNumber: 0,
+      productType:'',
+      productEdition:'',
       buyType: {},
       versions: [],
       period: {},
@@ -188,6 +173,10 @@ export default {
     }
   },
   methods: {
+    isNumberChange (isNumberChange){
+      console.log(isNumberChange)
+      this.isNumber = isNumberChange;
+    },
     onParamChange (attr, val) {
       this[attr] = val
       this.getPrice()
@@ -277,5 +266,19 @@ export default {
   background: #4fc08d;
   color: #fff;
   border: 1px solid #4fc08d;
+}
+
+.form {
+  padding: 20px;
+  font-size: 16px;
+}
+.form-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.el-form-item__label {
+    padding: 0 20px 0 0;
 }
 </style>
