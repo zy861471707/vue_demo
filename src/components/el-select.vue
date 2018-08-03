@@ -27,8 +27,7 @@ export default {
     },
     data(){
         return {
-            selected:'',
-            wholeParent:''
+            selected:''
         }
     },
     methods:{
@@ -37,16 +36,9 @@ export default {
         }
     },
     created(){
+        //这里进行初始化,这里还需要进行push一条‘全部’的数据,采用循环data里面的属性进行赋值，然后再push进去
         this.selected = this.isSelectInit;
-        let dataObj = {
-            label:'全部',
-            value:''
-        };
-        for(let [index,elem] of this.SelectData.entries()){
-            dataObj.value += elem.value +',';
-        }
-        dataObj.value = dataObj.value.slice(0,-1);
-        this.SelectData.unshift(dataObj);//添加到数组首位
+        console.log(this.selected)
     }
 
 }
