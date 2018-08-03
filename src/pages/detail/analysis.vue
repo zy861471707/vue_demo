@@ -10,7 +10,7 @@
             <el-number v-on:numChange="isNumberChange"></el-number>
           </el-form-item>
           <el-form-item label="产品类型:" class="form-item">
-            <el-select v-if="buyTypes" v-bind:SelectData="buyTypes"></el-select>
+            <el-select v-if="buyTypes" v-bind:isSelectInit="isSelectInit" v-bind:SelectData="buyTypes" v-on:selectChange="isSelectChange"></el-select>
           </el-form-item>
           <el-form-item label="有效时间:" class="form-item">
             <el-date-picker
@@ -117,6 +117,8 @@ export default {
   data () {
     return {
       isNumber: 0,
+      isSelected:'',
+      isSelectInit:0,//初始化select选项
       productType:'',
       productEdition:'',
       buyType: {},
@@ -176,6 +178,10 @@ export default {
     isNumberChange (isNumberChange){
       console.log(isNumberChange)
       this.isNumber = isNumberChange;
+    },
+    isSelectChange(isSelected){
+      console.log(isSelected)
+      this.isSelected = isSelected;
     },
     onParamChange (attr, val) {
       this[attr] = val

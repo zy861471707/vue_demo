@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="selected" placeholder="请选择">
+    <el-select v-model="selected" placeholder="请选择" @change="handleChange">
         <el-option
         v-for="item in SelectData"
         :key="item.value"
@@ -17,13 +17,30 @@ export default {
             default() {
                 return []
             }
+        },
+        isSelectInit:{
+            type:[Number,String],
+            default() {
+                return 0
+            }
         }
     },
     data(){
         return {
             selected:''
         }
+    },
+    methods:{
+        handleChange(){
+            this.$emit("selectChange",this.selected)
+        }
+    },
+    created(){
+        //这里进行初始化,这里还需要进行push一条‘全部’的数据,采用循环data里面的属性进行赋值，然后再push进去
+        this.selected = this.isSelectInit;
+        console.log(this.selected)
     }
+
 }
 </script>
 <style>
