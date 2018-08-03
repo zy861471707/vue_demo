@@ -27,8 +27,7 @@ export default {
     },
     data(){
         return {
-            selected:'',
-            wholeParent:''
+            selected:''
         }
     },
     methods:{
