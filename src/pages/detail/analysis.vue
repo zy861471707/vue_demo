@@ -22,21 +22,24 @@
             </el-date-picker>
           </el-form-item>
           <el-form-item label="产品版本:" class="form-item">
-            <el-select v-model="productEdition" placeholder="请选择">
+            <!-- <el-select v-model="productEdition" placeholder="请选择">
               <el-option
                 v-for="item in buyTypes"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
-            </el-select>
+            </el-select> -->
+            <el-select v-if="versionList" v-bind:SelectData="versionList" v-on:selectChange="proSelectChange"></el-select>
           </el-form-item>
           <el-form-item label="" class="form-item">
             <label slot="label">总&emsp;&emsp;价:</label>
             100元
           </el-form-item>
           <el-form-item size="large">
+            
             <el-button type="primary" @click="showPayDialog">立即购买</el-button>
+            <el-button type="primary" @click="sublimtBtn">测试数据</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -117,7 +120,8 @@ export default {
   data () {
     return {
       isNumber: 0,
-      isSelected:'',
+      typeSelected:'',//产品类型
+      proSelected:'',//产品版本
       isSelectInit:0,//初始化select选项
       productType:'',
       productEdition:'',
@@ -180,8 +184,15 @@ export default {
       this.isNumber = isNumberChange;
     },
     isSelectChange(isSelected){
-      console.log(isSelected)
-      this.isSelected = isSelected;
+      this.typeSelected = isSelected;
+    },
+    proSelectChange(isSelected){
+      this.proSelected = isSelected;
+    },
+    //查看提交的数据
+    sublimtBtn (){
+      console.log('产品版本',this.proSelected)
+      console.log('类型',this.typeSelected)
     },
     onParamChange (attr, val) {
       this[attr] = val
