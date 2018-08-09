@@ -22,14 +22,6 @@
             </el-date-picker>
           </el-form-item>
           <el-form-item label="产品版本:" class="form-item">
-            <!-- <el-select v-model="productEdition" placeholder="请选择">
-              <el-option
-                v-for="item in buyTypes"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select> -->
             <el-select v-if="versionList" v-bind:SelectData="versionList" v-on:selectChange="proSelectChange"></el-select>
           </el-form-item>
           <el-form-item label="" class="form-item">
@@ -45,7 +37,13 @@
       </div>
       <div class="sales-board-des">
         <h2>表格展示</h2>
-        <el-table v-if="tableList && tableList.length" :tableData="tableList" :tableThead="tableThead"></el-table>
+        <el-table 
+          v-if="tableList && tableList.length" :tableData="tableList" 
+          :tableThead="tableThead" 
+          :showSelect="isShowSelect"
+          :showOperation="isShowOperation"
+          :indexColumnPopover="isIndexColumnPopover">
+        </el-table>
       </div>
       <!-- <my-dialog :is-show="isShowPayDialog" @on-close="hidePayDialog">
         <h3 class="buy-dialog-title">请选择银行</h3>
@@ -88,7 +86,11 @@ export default {
       proSelected:'',//产品版本
       isSelectInit:0,//初始化select选项
       tableList:'',
-      tableThead:['日期','姓名','地址'],//指定表格表头数据，这样可以做到自动化
+      tableThead:[{key:'日期',value:'date'},{key:'姓名',value:'name'},{key:'地址',value:'address'}],//指定表格表头数据，这样可以做到自动化
+      isShowSelect:true,//指定表格是否展示多选列
+      isShowOperation:false,//指定表格是否展示操作列
+      // isIndexColumnPopover:'地址',//指定表格第几列需要悬浮提示多余的内容
+      isIndexColumnPopover:[4],//指定表格第几列需要悬浮提示多余的内容
       productEdition:'',
       buyType: {},
       versions: [],
