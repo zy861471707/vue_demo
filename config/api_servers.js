@@ -36,3 +36,7 @@ app.post('/api/getProductList', function (req, res) {
 app.post('/api/getSliderList', function (req, res) {
   res.send(db.slides);
 })
+//获取表格数据
+app.post('/api/getTableList', function (req, res) {
+  res.send(db.tablelist);
+})

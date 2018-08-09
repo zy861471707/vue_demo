@@ -14,7 +14,7 @@
           </el-form-item>
           <el-form-item label="有效时间:" class="form-item">
             <el-date-picker
-
+              
               type="daterange"
               range-separator="至"
               start-placeholder="开始日期"
@@ -44,46 +44,10 @@
         </el-form>
       </div>
       <div class="sales-board-des">
-        <h2>产品说明</h2>
-        <p>网站访问统计分析报告的基础数据源于网站流量统计信息，但其价值远高于原始数据资料。专业的网站访问统计分析报告对网络营销的价值，正如专业的财务分析报告对企业经营策略的价值。</p>
-
-        <h3>用户行为指标</h3>
-        <ul>
-          <li>用户行为指标主要反映用户是如何来到网站的、在网站上停留了多长时间、访问了哪些页面等，主要的统计指标包括：</li>
-          <li>用户在网站的停留时间；</li>
-          <li>用户来源网站（也叫“引导网站”）；</li>
-          <li>用户所使用的搜索引擎及其关键词；</li>
-          <li>在不同时段的用户访问量情况等。</li>
-        </ul>
-
-        <h3>浏览网站方式</h3>
-        <ul>
-          <li>用户上网设备类型</li>
-          <li>用户浏览器的名称和版本</li>
-          <li>访问者电脑分辨率显示模式</li>
-          <li>用户所使用的操作系统名称和版本</li>
-          <li>用户所在地理区域分布状况等</li>
-        </ul>
+        <h2>表格展示</h2>
+        <el-table v-if="tableList && tableList.length" :tableData="tableList" :tableThead="tableThead"></el-table>
       </div>
       <!-- <my-dialog :is-show="isShowPayDialog" @on-close="hidePayDialog">
-        <table class="buy-dialog-table">
-          <tr>
-            <th>购买数量</th>
-            <th>产品类型</th>
-            <th>有效时间</th>
-            <th>产品版本</th>
-            <th>总价</th>
-          </tr>
-          <tr>
-            <td>{{ buyNum }}</td>
-            <td>{{ buyType.label }}</td>
-            <td>{{ period.label }}</td>
-            <td>
-              <span v-for="(item,index) in versions" v-bind:key="index">{{ item.label }}</span>
-            </td>
-            <td>{{ price }}</td>
-          </tr>
-        </table>
         <h3 class="buy-dialog-title">请选择银行</h3>
         <bank-chooser @on-change="onChangeBanks"></bank-chooser>
         <div class="button buy-dialog-btn" @click="confirmBuy">
@@ -101,7 +65,7 @@
 <script>
 import ElSelect from '../../components/el-select'
 import ElNumber from '../../components/el-number'
-// import VChooser from '../../components/base/chooser'
+import ElTable from '../../components/el-table'
 // import VMulChooser from '../../components/base/multiplyChooser'
 // import Dialog from '../../components/base/dialog'
 // import BankChooser from '../../components/bankChooser'
@@ -111,7 +75,7 @@ export default {
   components: {
     ElSelect,
     ElNumber,
-    // VChooser,
+    ElTable
     // VMulChooser,
     // MyDialog: Dialog,
     // BankChooser,
@@ -123,7 +87,8 @@ export default {
       typeSelected:'',//产品类型
       proSelected:'',//产品版本
       isSelectInit:0,//初始化select选项
-      productType:'',
+      tableList:'',
+      tableThead:['日期','姓名','地址'],//指定表格表头数据，这样可以做到自动化
       productEdition:'',
       buyType: {},
       versions: [],
@@ -194,23 +159,12 @@ export default {
       console.log('产品版本',this.proSelected)
       console.log('类型',this.typeSelected)
     },
-    onParamChange (attr, val) {
-      this[attr] = val
-      this.getPrice()
-    },
-    getPrice () {
-      let buyVersionsArray = _.map(this.versions, (item) => {
-        return item.value
-      })
-      let reqParams = {
-        buyNumber: this.buyNum,
-        buyType: this.buyType.value,
-        period: this.period.value,
-        version: buyVersionsArray.join(',')
-      }
-      this.http.post('/api/getPrice', reqParams)
-      .then((res) => {
-        this.price = res.data.amount
+    //获取table数据
+    getTableDataList () {
+      this.http.post('api/getTableList').then(res=>{
+        if(res&&res.data.result){
+          this.tableList = res.data.data;
+        }
       })
     },
     showPayDialog () {
@@ -255,7 +209,7 @@ export default {
     this.buyType = this.buyTypes[0]
     this.versions = [this.versionList[0]]
     this.period = this.periodList[0]
-    this.getPrice()
+    this.getTableDataList()
   }
 }
 </script>
