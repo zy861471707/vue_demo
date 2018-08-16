@@ -3,35 +3,16 @@
         @selection-change="handleSelectionChange">
     <el-table-column type="selection" v-if="showSelect">
     </el-table-column>
-    <!--<el-table-column label="">
-        <template scope="scope">
-        <el-radio :label="scope.row.id" v-model="radio" @change.native="getCurrentRow(scope.$index, scope.row)">&thinsp;</el-radio>
-        </template>
-    </el-table-column>
-    <el-table-column prop="date" label="日期">
-    </el-table-column>
-    <el-table-column prop="name" label="姓名">
-    </el-table-column>
-    <el-table-column prop="address" label="地址">
+    <el-table-column v-for="(item,index) in tableThead" :key="index" :label="item.key">        
         <template slot-scope="scope">
-        <el-popover trigger="hover" placement="top" :openDelay="openDelay">
-          <p>地址: {{ scope.row.address }}</p>
-          <div slot="reference" class="name-wrapper el-tooltip">
-            {{ scope.row.address }}
-          </div>
-        </el-popover>
-      </template>
-    </el-table-column>-->
-    <el-table-column v-for="(item,index) in tableThead" :key="index" :label="item.key">
-        <template slot-scope="scope">{{scope.row[item.value]}}</template>
-        <!--<template slot-scope="scope" v-if="indexColumnPopover[0] === index+1">
+            <p v-if="item.key !== indexColumnPopover">{{ scope.row[item.value] }}</p>            
             <el-popover trigger="hover" placement="top" :openDelay="openDelay">
-            <p>{{item.key}}: {{ scope.row.address }}</p>
-            <div slot="reference" class="name-wrapper el-tooltip">
-                {{ scope.row.address }}
-            </div>
+                <p v-if="item.key === indexColumnPopover">{{ item.key }}: {{ scope.row[item.value] }}</p>
+                <div slot="reference" class="name-wrapper el-tooltip" v-if="item.key === indexColumnPopover">
+                    {{ scope.row[item.value] }}
+                </div>
             </el-popover>
-        </template>-->
+        </template>
     </el-table-column>
     <el-table-column label="操作" v-if="showOperation">
       <template slot-scope="scope">
@@ -74,7 +55,8 @@ export default {
         },
         //第几列需要弹出提示框
         indexColumnPopover:{
-            type:Array,
+            type:String,
+            // type:Array,
             default:function(){
                 return [];
             }
@@ -85,7 +67,7 @@ export default {
             radio:'',
             data: [],
             multipleSelection: [],
-            openDelay:500
+            openDelay:500//显示延迟时间
         };
     },
     methods:{
@@ -99,14 +81,12 @@ export default {
         },
         handleDelete(index, row) {
             console.log('delete',index, row);
-        },
-        getCurrentRow(index, row){
-            console.log('radio',index, row);
         }
     },
     created(){
         console.log(this.indexColumnPopover);
         this.data = [...this.tableData];
+        console.log(this.tableThead)
     }
 };
 </script>

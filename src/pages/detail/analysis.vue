@@ -88,9 +88,9 @@ export default {
       tableList:'',
       tableThead:[{key:'日期',value:'date'},{key:'姓名',value:'name'},{key:'地址',value:'address'}],//指定表格表头数据，这样可以做到自动化
       isShowSelect:true,//指定表格是否展示多选列
-      isShowOperation:false,//指定表格是否展示操作列
-      // isIndexColumnPopover:'地址',//指定表格第几列需要悬浮提示多余的内容
-      isIndexColumnPopover:[4],//指定表格第几列需要悬浮提示多余的内容
+      isShowOperation:true,//指定表格是否展示操作列
+      isIndexColumnPopover:'地址',//指定表格第几列需要悬浮提示多余的内容
+      // isIndexColumnPopover:['姓名','地址'],//指定表格第几列需要悬浮提示多余的内容
       productEdition:'',
       buyType: {},
       versions: [],
